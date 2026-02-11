@@ -1,9 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 test('displays entered inputs', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/inputs');
 
-  const tryItOutLink = page.getByRole('link', { name: 'Try it out' }).first();
   const numberInput = page.getByLabel('Input: Number');
   const textInput = page.getByLabel('Input: Text');
   const passwordInput = page.getByLabel('Input: Password');
@@ -16,8 +15,6 @@ test('displays entered inputs', async ({ page }) => {
     password: 'Password123*',
     date: '2025-11-11'
   };
-
-  await tryItOutLink.click();
 
   await numberInput.fill(inputs.number);
   await textInput.fill(inputs.text);
