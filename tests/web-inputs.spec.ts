@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/adblock.fixture';
 
 test('displays entered inputs', async ({ page }) => {
   await page.goto('/inputs');
