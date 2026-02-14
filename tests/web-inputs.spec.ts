@@ -8,6 +8,7 @@ test('displays entered inputs', async ({ page }) => {
   const passwordInput = page.getByLabel('Input: Password');
   const dateInput = page.getByLabel('Input: Date');
   const displayButton = page.getByRole('button', { name: 'Display Inputs' });
+  const clearButton = page.getByRole('button', { name: 'Clear Inputs' });
 
   const inputs = {
     number: '12345',
@@ -26,4 +27,7 @@ test('displays entered inputs', async ({ page }) => {
   for (const value of Object.values(inputs)) {
     await expect(page.getByText(value)).toBeVisible();
   }
+
+  await clearButton.click();
+  await expect(numberInput).toBeEmpty();
 });
