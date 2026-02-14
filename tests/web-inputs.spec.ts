@@ -7,6 +7,7 @@ test('displays entered inputs', async ({ page }) => {
   const textInput = page.getByLabel('Input: Text');
   const passwordInput = page.getByLabel('Input: Password');
   const dateInput = page.getByLabel('Input: Date');
+
   const displayButton = page.getByRole('button', { name: 'Display Inputs' });
   const clearButton = page.getByRole('button', { name: 'Clear Inputs' });
 
@@ -29,5 +30,10 @@ test('displays entered inputs', async ({ page }) => {
   }
 
   await clearButton.click();
-  await expect(numberInput).toBeEmpty();
+
+  const allInputs = [numberInput, textInput, passwordInput, dateInput];
+
+  for (const input of allInputs) {
+    await expect(input).toBeEmpty();
+  }
 });
