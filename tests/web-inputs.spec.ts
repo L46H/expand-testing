@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/adblock.fixture';
 
-test('displays entered inputs', async ({ page }) => {
+test('display entered inputs', async ({ page }) => {
   await page.goto('/inputs');
 
   const numberInput = page.getByLabel('Input: Number');

@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/adblock.fixture';
 
-test('user can login and logout successfully', async ({ page }) => {
+test('login and logout successfully', async ({ page }) => {
     await page.goto('/login');
 
     const usernameInput = page.getByLabel('Username');
