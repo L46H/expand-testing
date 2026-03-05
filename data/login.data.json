@@ -1,0 +1,15 @@
+{
+  "validLogin": {
+    "username": "practice",
+    "password": "SuperSecretPassword!",
+    "shouldLogout": true
+  },
+  "invalidUsername": {
+    "username": "invPractice",
+    "password": "SuperSecretPassword!"
+  },
+  "invalidPassword": {
+    "username": "practice",
+    "password": "invPass"
+  }
+}

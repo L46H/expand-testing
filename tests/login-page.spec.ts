@@ -1,12 +1,6 @@
 import { test, expect } from '../fixtures/adblock.fixture';
 import { LoginPage } from '../pages/login.page';
-
-const credentials = {
-  username: 'practice',
-  password: 'SuperSecretPassword!',
-  invalidUsername: 'invPractice',
-  invalidPassword: 'invPass'
-};
+import loginData from '../data/login.data.json';
 
 let loginPage: LoginPage;
 
@@ -15,8 +9,10 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
 });
 
-test('login and logout successfully', async ({ page }) => {
-  await loginPage.login(credentials.username, credentials.password);
+test('valid login', async ({ page }) => {
+  const data = loginData.validLogin;
+
+  await loginPage.login(data.username, data.password);
   await expect(page.getByText('You logged into a secure area!')).toBeVisible();
 
   await loginPage.logout();
@@ -25,12 +21,16 @@ test('login and logout successfully', async ({ page }) => {
   ).toBeVisible();
 });
 
-test('login with invalid username', async ({ page }) => {
-  await loginPage.login(credentials.invalidUsername, credentials.password);
+test('invalid username', async ({ page }) => {
+  const data = loginData.invalidUsername;
+
+  await loginPage.login(data.username, data.password);
   await expect(page.getByText('Your username is invalid!')).toBeVisible();
 });
 
-test('login with invalid password', async ({ page }) => {
-  await loginPage.login(credentials.username, credentials.invalidPassword);
+test('invalid password', async ({ page }) => {
+  const data = loginData.invalidPassword;
+
+  await loginPage.login(data.username, data.password);
   await expect(page.getByText('Your password is invalid!')).toBeVisible();
 });
