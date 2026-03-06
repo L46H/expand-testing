@@ -9,12 +9,17 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
 });
 
-test('valid login', async ({ page }) => {
+test('successful login', async ({ page }) => {
   const data = loginData.validLogin;
 
   await loginPage.login(data.username, data.password);
   await expect(page.getByText('You logged into a secure area!')).toBeVisible();
+});
 
+test('successful logout', async ({ page }) => {
+  const data = loginData.validLogin;
+
+  await loginPage.login(data.username, data.password);
   await loginPage.logout();
   await expect(
     page.getByText('You logged out of the secure area!')
