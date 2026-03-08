@@ -5,8 +5,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('successful registration', async ({ page }) => {
-  const uniqueId = Date.now();
-  const username = `user${uniqueId}`;
+  const username = `user${Date.now()}`;
 
   await page.getByRole('textbox', { name: 'Username' }).fill(username);
   await page
@@ -21,4 +20,20 @@ test('successful registration', async ({ page }) => {
   await expect(
     page.getByText('Successfully registered, you can log in now.')
   ).toBeVisible();
+});
+
+test('password mismatch', async ({ page }) => {
+  const username = `user${Date.now()}`;
+
+  await page.getByRole('textbox', { name: 'Username' }).fill(username);
+  await page
+    .getByRole('textbox', { name: 'Password', exact: true })
+    .fill('Password123*');
+  await page
+    .getByRole('textbox', { name: 'Confirm Password' })
+    .fill('Password1234*');
+
+  await page.getByRole('button', { name: 'Register' }).click();
+
+  await expect(page.getByText('Passwords do not match.')).toBeVisible();
 });
