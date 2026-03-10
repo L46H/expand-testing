@@ -37,3 +37,9 @@ test('password mismatch', async ({ page }) => {
 
   await expect(page.getByText('Passwords do not match.')).toBeVisible();
 });
+
+test('empty fields', async ({ page }) => {
+  await page.getByRole('button', { name: 'Register' }).click();
+
+  await expect(page.getByText('All fields are required.')).toBeVisible();
+});
