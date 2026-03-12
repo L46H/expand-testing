@@ -43,3 +43,19 @@ test('empty fields', async ({ page }) => {
 
   await expect(page.getByText('All fields are required.')).toBeVisible();
 });
+
+test('username too short', async ({ page }) => {
+  await page.getByRole('textbox', { name: 'Username' }).fill('us');
+  await page
+    .getByRole('textbox', { name: 'Password', exact: true })
+    .fill('Password123*');
+  await page
+    .getByRole('textbox', { name: 'Confirm Password' })
+    .fill('Password1234*');
+
+  await page.getByRole('button', { name: 'Register' }).click();
+
+  await expect(
+    page.getByText('Username must be at least 3 characters long.')
+  ).toBeVisible();
+});
