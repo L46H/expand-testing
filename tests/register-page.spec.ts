@@ -1,22 +1,17 @@
 import { test, expect } from '@playwright/test';
+import { RegisterPage } from '../pages/register.page';
+
+let registerPage: RegisterPage;
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/register');
+  registerPage = new RegisterPage(page);
 });
 
 test('successful registration', async ({ page }) => {
   const username = `user${Date.now()}`;
 
-  await page.getByRole('textbox', { name: 'Username' }).fill(username);
-  await page
-    .getByRole('textbox', { name: 'Password', exact: true })
-    .fill('Password123*');
-  await page
-    .getByRole('textbox', { name: 'Confirm Password' })
-    .fill('Password123*');
-
-  await page.getByRole('button', { name: 'Register' }).click();
-
+  await registerPage.register(username, 'Password123*', 'Password123*');
   await expect(
     page.getByText('Successfully registered, you can log in now.')
   ).toBeVisible();
@@ -25,35 +20,18 @@ test('successful registration', async ({ page }) => {
 test('password mismatch', async ({ page }) => {
   const username = `user${Date.now()}`;
 
-  await page.getByRole('textbox', { name: 'Username' }).fill(username);
-  await page
-    .getByRole('textbox', { name: 'Password', exact: true })
-    .fill('Password123*');
-  await page
-    .getByRole('textbox', { name: 'Confirm Password' })
-    .fill('Password1234*');
-
-  await page.getByRole('button', { name: 'Register' }).click();
-
+  await registerPage.register(username, 'Password123*', 'Password1234*');
   await expect(page.getByText('Passwords do not match.')).toBeVisible();
 });
 
 test('empty fields', async ({ page }) => {
-  await page.getByRole('button', { name: 'Register' }).click();
+  await registerPage.register('', '', '');
 
   await expect(page.getByText('All fields are required.')).toBeVisible();
 });
 
 test('username too short', async ({ page }) => {
-  await page.getByRole('textbox', { name: 'Username' }).fill('us');
-  await page
-    .getByRole('textbox', { name: 'Password', exact: true })
-    .fill('Password123*');
-  await page
-    .getByRole('textbox', { name: 'Confirm Password' })
-    .fill('Password1234*');
-
-  await page.getByRole('button', { name: 'Register' }).click();
+  await registerPage.register('ab', 'Password123*', 'Password123*');
 
   await expect(
     page.getByText('Username must be at least 3 characters long.')
