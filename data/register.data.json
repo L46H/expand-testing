@@ -1,0 +1,19 @@
+{
+  "validRegister": {
+    "password": "Password123*"
+  },
+  "passwordMismatch": {
+    "password": "Password123*",
+    "confirmPassword": "Password1234*"
+  },
+  "emptyFields": {
+    "username": "",
+    "password": "",
+    "confirmPassword": ""
+  },
+  "shortUsername": {
+    "username": "ab",
+    "password": "Password123*",
+    "confirmPassword": "Password123*"
+  }
+}

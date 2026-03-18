@@ -1,5 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/adblock.fixture';
 import { RegisterPage } from '../pages/register.page';
+import registerData from '../data/register.data.json';
 
 let registerPage: RegisterPage;
 
@@ -10,8 +11,9 @@ test.beforeEach(async ({ page }) => {
 
 test('successful registration', async ({ page }) => {
   const username = `user${Date.now()}`;
+  const data = registerData.validRegister;
 
-  await registerPage.register(username, 'Password123*', 'Password123*');
+  await registerPage.register(username, data.password, data.password);
   await expect(
     page.getByText('Successfully registered, you can log in now.')
   ).toBeVisible();
@@ -19,20 +21,23 @@ test('successful registration', async ({ page }) => {
 
 test('password mismatch', async ({ page }) => {
   const username = `user${Date.now()}`;
+  const data = registerData.passwordMismatch;
 
-  await registerPage.register(username, 'Password123*', 'Password1234*');
+  await registerPage.register(username, data.password, data.confirmPassword);
   await expect(page.getByText('Passwords do not match.')).toBeVisible();
 });
 
 test('empty fields', async ({ page }) => {
-  await registerPage.register('', '', '');
+  const data = registerData.emptyFields;
 
+  await registerPage.register(data.username, data.password, data.confirmPassword);
   await expect(page.getByText('All fields are required.')).toBeVisible();
 });
 
 test('username too short', async ({ page }) => {
-  await registerPage.register('ab', 'Password123*', 'Password123*');
+  const data = registerData.shortUsername;
 
+  await registerPage.register(data.username, data.password, data.confirmPassword);
   await expect(
     page.getByText('Username must be at least 3 characters long.')
   ).toBeVisible();
