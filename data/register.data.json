@@ -15,5 +15,9 @@
     "username": "ab",
     "password": "Password123*",
     "confirmPassword": "Password123*"
+  },
+  "shortPassword": {
+    "password": "Pas",
+    "confirmPassword": "Pas"
   }
 }

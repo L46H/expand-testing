@@ -30,15 +30,33 @@ test('password mismatch', async ({ page }) => {
 test('empty fields', async ({ page }) => {
   const data = registerData.emptyFields;
 
-  await registerPage.register(data.username, data.password, data.confirmPassword);
+  await registerPage.register(
+    data.username,
+    data.password,
+    data.confirmPassword
+  );
   await expect(page.getByText('All fields are required.')).toBeVisible();
 });
 
 test('username too short', async ({ page }) => {
   const data = registerData.shortUsername;
 
-  await registerPage.register(data.username, data.password, data.confirmPassword);
+  await registerPage.register(
+    data.username,
+    data.password,
+    data.confirmPassword
+  );
   await expect(
     page.getByText('Username must be at least 3 characters long.')
+  ).toBeVisible();
+});
+
+test.only('password too short', async ({ page }) => {
+  const username = `user${Date.now()}`;
+  const data = registerData.shortPassword;
+
+  await registerPage.register(username, data.password, data.confirmPassword);
+  await expect(
+    page.getByText('Password must be at least 4 characters long.')
   ).toBeVisible();
 });
