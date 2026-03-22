@@ -51,7 +51,7 @@ test('username too short', async ({ page }) => {
   ).toBeVisible();
 });
 
-test.only('password too short', async ({ page }) => {
+test('password too short', async ({ page }) => {
   const username = `user${Date.now()}`;
   const data = registerData.shortPassword;
 
