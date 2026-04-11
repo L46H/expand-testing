@@ -6,6 +6,7 @@ export class RegisterPage {
   readonly passwordInput: Locator;
   readonly confirmPasswordInput: Locator;
   readonly registerButton: Locator;
+  readonly message: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -13,6 +14,7 @@ export class RegisterPage {
     this.passwordInput = page.getByLabel('Password', { exact: true });
     this.confirmPasswordInput = page.getByLabel('Confirm Password');
     this.registerButton = page.getByRole('button', { name: 'Register' });
+    this.message = page.getByRole('alert');
   }
 
   async register(username: string, password: string, confirmPassword: string) {

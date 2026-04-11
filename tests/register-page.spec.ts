@@ -11,52 +11,44 @@ test.beforeEach(async ({ page }) => {
 
 test('successful registration', async ({ page }) => {
   const username = `user${Date.now()}`;
-  const data = registerData.validRegister;
+  const { password } = registerData.validRegister;
 
-  await registerPage.register(username, data.password, data.password);
-  await expect(
-    page.getByText('Successfully registered, you can log in now.')
-  ).toBeVisible();
+  await registerPage.register(username, password, password);
+  await expect(registerPage.message).toContainText(
+    'Successfully registered, you can log in now.'
+  );
 });
 
 test('password mismatch', async ({ page }) => {
   const username = `user${Date.now()}`;
-  const data = registerData.passwordMismatch;
+  const { password, confirmPassword } = registerData.passwordMismatch;
 
-  await registerPage.register(username, data.password, data.confirmPassword);
-  await expect(page.getByText('Passwords do not match.')).toBeVisible();
+  await registerPage.register(username, password, confirmPassword);
+  await expect(registerPage.message).toContainText('Passwords do not match.');
 });
 
 test('empty fields', async ({ page }) => {
-  const data = registerData.emptyFields;
+  const { username, password, confirmPassword } = registerData.emptyFields;
 
-  await registerPage.register(
-    data.username,
-    data.password,
-    data.confirmPassword
-  );
-  await expect(page.getByText('All fields are required.')).toBeVisible();
+  await registerPage.register(username, password, confirmPassword);
+  await expect(registerPage.message).toContainText('All fields are required.');
 });
 
 test('username too short', async ({ page }) => {
-  const data = registerData.shortUsername;
+  const { username, password, confirmPassword } = registerData.shortUsername;
 
-  await registerPage.register(
-    data.username,
-    data.password,
-    data.confirmPassword
+  await registerPage.register(username, password, confirmPassword);
+  await expect(registerPage.message).toContainText(
+    'Username must be at least 3 characters long.'
   );
-  await expect(
-    page.getByText('Username must be at least 3 characters long.')
-  ).toBeVisible();
 });
 
 test('password too short', async ({ page }) => {
   const username = `user${Date.now()}`;
-  const data = registerData.shortPassword;
+  const { password, confirmPassword } = registerData.shortPassword;
 
-  await registerPage.register(username, data.password, data.confirmPassword);
-  await expect(
-    page.getByText('Password must be at least 4 characters long.')
-  ).toBeVisible();
+  await registerPage.register(username, password, confirmPassword);
+  await expect(registerPage.message).toContainText(
+    'Password must be at least 4 characters long.'
+  );
 });
