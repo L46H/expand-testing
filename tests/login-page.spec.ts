@@ -10,32 +10,38 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('successful login', async ({ page }) => {
-  const data = loginData.validLogin;
+  const { username, password } = loginData.validLogin;
 
-  await loginPage.login(data.username, data.password);
-  await expect(page.getByText('You logged into a secure area!')).toBeVisible();
+  await loginPage.login(username, password);
+  await expect(loginPage.message).toContainText(
+    'You logged into a secure area!'
+  );
 });
 
 test('successful logout', async ({ page }) => {
-  const data = loginData.validLogin;
+  const { username, password } = loginData.validLogin;
 
-  await loginPage.login(data.username, data.password);
+  await loginPage.login(username, password);
   await loginPage.logout();
-  await expect(
-    page.getByText('You logged out of the secure area!')
-  ).toBeVisible();
+  await expect(loginPage.message).toContainText(
+    'You logged out of the secure area!'
+  );
 });
 
 test('invalid username', async ({ page }) => {
-  const data = loginData.invalidUsername;
+  const { username, password } = loginData.invalidUsername;
 
-  await loginPage.login(data.username, data.password);
-  await expect(page.getByText('Your username is invalid!')).toBeVisible();
+  await loginPage.login(username, password);
+  await expect(loginPage.message).toContainText(
+    'Your username is invalid!'
+  );
 });
 
 test('invalid password', async ({ page }) => {
-  const data = loginData.invalidPassword;
+  const { username, password } = loginData.invalidPassword;
 
-  await loginPage.login(data.username, data.password);
-  await expect(page.getByText('Your password is invalid!')).toBeVisible();
+  await loginPage.login(username, password);
+  await expect(loginPage.message).toContainText(
+    'Your password is invalid!'
+  );
 });

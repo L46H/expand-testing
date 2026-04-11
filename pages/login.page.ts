@@ -6,6 +6,7 @@ export class LoginPage {
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
   readonly logoutButton: Locator;
+  readonly message: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -13,6 +14,7 @@ export class LoginPage {
     this.passwordInput = page.getByLabel('Password');
     this.loginButton = page.getByRole('button', { name: 'Login' });
     this.logoutButton = page.getByRole('link', { name: 'Logout' });
+    this.message = page.getByRole('alert');
   }
 
   async login(username: string, password: string) {
