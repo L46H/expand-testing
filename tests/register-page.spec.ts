@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
   registerPage = new RegisterPage(page);
 });
 
-test('successful registration', async ({ page }) => {
+test('successful registration', async () => {
   const username = `user${Date.now()}`;
   const { password } = registerData.validRegister;
 
@@ -19,7 +19,7 @@ test('successful registration', async ({ page }) => {
   );
 });
 
-test('password mismatch', async ({ page }) => {
+test('password mismatch', async () => {
   const username = `user${Date.now()}`;
   const { password, confirmPassword } = registerData.passwordMismatch;
 
@@ -27,14 +27,14 @@ test('password mismatch', async ({ page }) => {
   await expect(registerPage.message).toContainText('Passwords do not match.');
 });
 
-test('empty fields', async ({ page }) => {
+test('empty fields', async () => {
   const { username, password, confirmPassword } = registerData.emptyFields;
 
   await registerPage.register(username, password, confirmPassword);
   await expect(registerPage.message).toContainText('All fields are required.');
 });
 
-test('username too short', async ({ page }) => {
+test('username too short', async () => {
   const { username, password, confirmPassword } = registerData.shortUsername;
 
   await registerPage.register(username, password, confirmPassword);
@@ -43,7 +43,7 @@ test('username too short', async ({ page }) => {
   );
 });
 
-test('password too short', async ({ page }) => {
+test('password too short', async () => {
   const username = `user${Date.now()}`;
   const { password, confirmPassword } = registerData.shortPassword;
 
