@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
 });
 
-test('successful login', async ({ page }) => {
+test('successful login', async () => {
   const { username, password } = loginData.validLogin;
 
   await loginPage.login(username, password);
@@ -18,7 +18,7 @@ test('successful login', async ({ page }) => {
   );
 });
 
-test('successful logout', async ({ page }) => {
+test('successful logout', async () => {
   const { username, password } = loginData.validLogin;
 
   await loginPage.login(username, password);
@@ -28,20 +28,16 @@ test('successful logout', async ({ page }) => {
   );
 });
 
-test('invalid username', async ({ page }) => {
+test('invalid username', async () => {
   const { username, password } = loginData.invalidUsername;
 
   await loginPage.login(username, password);
-  await expect(loginPage.message).toContainText(
-    'Your username is invalid!'
-  );
+  await expect(loginPage.message).toContainText('Your username is invalid!');
 });
 
-test('invalid password', async ({ page }) => {
+test('invalid password', async () => {
   const { username, password } = loginData.invalidPassword;
 
   await loginPage.login(username, password);
-  await expect(loginPage.message).toContainText(
-    'Your password is invalid!'
-  );
+  await expect(loginPage.message).toContainText('Your password is invalid!');
 });
