@@ -12,3 +12,13 @@ test('successful password reset', async ({ page }) => {
     'An e-mail has been sent to you which explains how to reset your password.'
   );
 });
+
+test('invalid email format', async ({ page }) => {
+  await page.getByLabel('E-mail').fill('invEmail');
+  await page.getByRole('button', { name: 'Retrieve password' }).click();
+
+  await expect(
+    page.getByText('Please enter a valid email address.')
+  ).toBeVisible();
+});
+
