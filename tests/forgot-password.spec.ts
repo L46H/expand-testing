@@ -22,3 +22,9 @@ test('invalid email format', async ({ page }) => {
   ).toBeVisible();
 });
 
+test('invalid email', async ({ page }) => {
+  await page.getByLabel('E-mail').fill('invEmail@example');
+  await page.getByRole('button', { name: 'Retrieve password' }).click();
+
+  await expect(page.getByRole('alert')).toContainText('Your email is invalid!');
+});
