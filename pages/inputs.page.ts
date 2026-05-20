@@ -58,6 +58,10 @@ export class InputsPage {
     ];
   }
 
+  async goto() {
+    await this.page.goto('/inputs');
+  }
+
   async fillInputs(data: InputsData) {
     await this.numberInput.fill(data.number);
     await this.textInput.fill(data.text);

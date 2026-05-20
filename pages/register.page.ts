@@ -17,6 +17,10 @@ export class RegisterPage {
     this.message = page.getByRole('alert');
   }
 
+  async goto() {
+    await this.page.goto('/register');
+  }
+
   async register(username: string, password: string, confirmPassword: string) {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);

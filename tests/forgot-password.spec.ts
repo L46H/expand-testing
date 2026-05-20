@@ -5,7 +5,7 @@ let forgotPasswordPage: ForgotPasswordPage;
 
 test.beforeEach(async ({ page }) => {
   forgotPasswordPage = new ForgotPasswordPage(page);
-  await page.goto('/forgot-password');
+  await forgotPasswordPage.goto();
 });
 
 test('successful password reset', async () => {

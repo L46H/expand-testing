@@ -11,8 +11,8 @@ const testData: InputsData = {
 let inputsPage: InputsPage;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/inputs');
   inputsPage = new InputsPage(page);
+  await inputsPage.goto();
 });
 
 test('display entered inputs', async () => {

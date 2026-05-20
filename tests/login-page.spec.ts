@@ -5,8 +5,8 @@ import loginData from '../data/login.data.json';
 let loginPage: LoginPage;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/login');
   loginPage = new LoginPage(page);
+  await loginPage.goto();
 });
 
 test('successful login', async () => {

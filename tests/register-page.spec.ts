@@ -5,8 +5,8 @@ import registerData from '../data/register.data.json';
 let registerPage: RegisterPage;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/register');
   registerPage = new RegisterPage(page);
+  await registerPage.goto();
 });
 
 test('successful registration', async () => {

@@ -19,6 +19,10 @@ export class ForgotPasswordPage {
     this.emailValidationMessage = page.locator('#email + .invalid-feedback');
   }
 
+  async goto() {
+    await this.page.goto('/forgot-password');
+  }
+
   async requestPasswordReset(email: string) {
     await this.emailInput.fill(email);
     await this.retrieveButton.click();
