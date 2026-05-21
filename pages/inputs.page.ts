@@ -8,8 +8,6 @@ export type InputsData = {
 };
 
 export class InputsPage {
-  readonly page: Page;
-  
   readonly numberInput: Locator;
   readonly textInput: Locator;
   readonly passwordInput: Locator;
@@ -23,9 +21,7 @@ export class InputsPage {
   readonly displayButton: Locator;
   readonly clearButton: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
-
+  constructor(private page: Page) {
     this.numberInput = page.locator('#input-number');
     this.textInput = page.locator('#input-text');
     this.passwordInput = page.locator('#input-password');

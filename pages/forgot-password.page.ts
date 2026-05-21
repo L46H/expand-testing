@@ -1,16 +1,12 @@
 import { Page, Locator } from '@playwright/test';
 
 export class ForgotPasswordPage {
-  readonly page: Page;
-
   readonly emailInput: Locator;
   readonly retrieveButton: Locator;
   readonly alertMessage: Locator;
   readonly emailValidationMessage: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
-
+  constructor(private page: Page) {
     this.emailInput = page.getByLabel('E-mail');
     this.retrieveButton = page.getByRole('button', {
       name: 'Retrieve password'
