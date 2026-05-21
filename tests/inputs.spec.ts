@@ -12,7 +12,7 @@ let inputsPage: InputsPage;
 
 test.beforeEach(async ({ page }) => {
   inputsPage = new InputsPage(page);
-  await inputsPage.goto();
+  await inputsPage.open();
 });
 
 test('display entered inputs', async () => {

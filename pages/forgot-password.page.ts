@@ -19,7 +19,7 @@ export class ForgotPasswordPage {
     this.emailValidationMessage = page.locator('#email + .invalid-feedback');
   }
 
-  async goto() {
+  async open() {
     await this.page.goto('/forgot-password');
   }
 

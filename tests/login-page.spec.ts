@@ -6,7 +6,7 @@ let loginPage: LoginPage;
 
 test.beforeEach(async ({ page }) => {
   loginPage = new LoginPage(page);
-  await loginPage.goto();
+  await loginPage.open();
 });
 
 test('successful login', async () => {

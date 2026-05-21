@@ -58,7 +58,7 @@ export class InputsPage {
     ];
   }
 
-  async goto() {
+  async open() {
     await this.page.goto('/inputs');
   }
 

@@ -6,7 +6,7 @@ let registerPage: RegisterPage;
 
 test.beforeEach(async ({ page }) => {
   registerPage = new RegisterPage(page);
-  await registerPage.goto();
+  await registerPage.open();
 });
 
 test('successful registration', async () => {

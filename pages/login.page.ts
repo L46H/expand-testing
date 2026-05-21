@@ -17,7 +17,7 @@ export class LoginPage {
     this.message = page.getByRole('alert');
   }
 
-  async goto() {
+  async open() {
     await this.page.goto('/login');
   }
 
