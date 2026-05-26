@@ -1,8 +1,7 @@
 {
   "validLogin": {
     "username": "practice",
-    "password": "SuperSecretPassword!",
-    "shouldLogout": true
+    "password": "SuperSecretPassword!"
   },
   "validOtpLogin": {
     "email": "practice@expandtesting.com",
