@@ -4,6 +4,10 @@
     "password": "SuperSecretPassword!",
     "shouldLogout": true
   },
+  "validOtpLogin": {
+    "email": "practice@expandtesting.com",
+    "otp": "214365"
+    },
   "invalidUsername": {
     "username": "invPractice",
     "password": "SuperSecretPassword!"

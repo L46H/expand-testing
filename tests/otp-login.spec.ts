@@ -1,12 +1,12 @@
 import { test, expect } from '../fixtures/adblock.fixture';
+import loginData from '../data/login.data.json';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/otp-login');
 });
 
 test('successful OTP login', async ({ page }) => {
-  const email = 'practice@expandtesting.com';
-  const otp = '214365';
+  const { email, otp } = loginData.validOtpLogin;
 
   await page.getByLabel('Your Email Address').fill(email);
   await page.getByRole('button', { name: 'Send OTP Code' }).click();
