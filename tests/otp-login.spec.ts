@@ -20,3 +20,11 @@ test('successful OTP login', async ({ page }) => {
     'You logged into a secure area!'
   );
 });
+
+test('invalid email', async ({ page }) => {
+  await page.getByLabel('Your Email Address').fill('invEmail');
+
+  await expect(
+    page.locator('#email + .invalid-feedback')
+  ).toContainText('Please enter a valid email address.');
+});
