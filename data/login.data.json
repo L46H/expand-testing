@@ -6,7 +6,11 @@
   "validOtpLogin": {
     "email": "practice@expandtesting.com",
     "otp": "214365"
-    },
+  },
+  "invalidOtpCode": {
+    "email": "practice@expandtesting.com",
+    "otp": "123456"
+  },
   "invalidUsername": {
     "username": "invPractice",
     "password": "SuperSecretPassword!"
