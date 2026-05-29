@@ -21,10 +21,26 @@ test('successful OTP login', async ({ page }) => {
   );
 });
 
+test('incorrect OTP code', async ({ page }) => {
+  const { email, otp } = loginData.invalidOtpCode;
+
+  await page.getByLabel('Your Email Address').fill(email);
+  await page.getByRole('button', { name: 'Send OTP Code' }).click();
+  await expect(page.locator('#otp-message')).toContainText(
+    `We've sent an OTP code to your email: ${email}`
+  );
+
+  await page.getByPlaceholder('Enter OTP code').fill(otp);
+  await page.getByRole('button', { name: 'Verify OTP' }).click();
+  await expect(page.locator('#otp-message')).toContainText(
+    'The provided OTP code is incorrect. Please check your code and try again.'
+  );
+});
+
 test('invalid email', async ({ page }) => {
   await page.getByLabel('Your Email Address').fill('invEmail');
 
-  await expect(
-    page.locator('#email + .invalid-feedback')
-  ).toContainText('Please enter a valid email address.');
+  await expect(page.locator('#email + .invalid-feedback')).toContainText(
+    'Please enter a valid email address.'
+  );
 });
