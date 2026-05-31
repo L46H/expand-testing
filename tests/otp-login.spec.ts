@@ -1,46 +1,46 @@
 import { test, expect } from '../fixtures/adblock.fixture';
 import loginData from '../data/login.data.json';
+import { OtpLoginPage } from '../pages/otp-login.page';
+
+let otpLoginPage: OtpLoginPage;
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/otp-login');
+  otpLoginPage = new OtpLoginPage(page);
+  await otpLoginPage.open();
 });
 
-test('successful OTP login', async ({ page }) => {
+test('successful OTP login', async () => {
   const { email, otp } = loginData.validOtpLogin;
 
-  await page.getByLabel('Your Email Address').fill(email);
-  await page.getByRole('button', { name: 'Send OTP Code' }).click();
-  await expect(page.locator('#otp-message')).toContainText(
+  await otpLoginPage.requestOtp(email);
+  await expect(otpLoginPage.otpMessage).toContainText(
     `We've sent an OTP code to your email: ${email}`
   );
 
-  await page.getByPlaceholder('Enter OTP code').fill(otp);
-  await page.getByRole('button', { name: 'Verify OTP' }).click();
-  await expect(page.getByRole('alert')).toContainText(
+  await otpLoginPage.verifyOtp(otp);
+  await expect(otpLoginPage.alertMessage).toContainText(
     'You logged into a secure area!'
   );
 });
 
-test('incorrect OTP code', async ({ page }) => {
+test('incorrect OTP code', async () => {
   const { email, otp } = loginData.invalidOtpCode;
 
-  await page.getByLabel('Your Email Address').fill(email);
-  await page.getByRole('button', { name: 'Send OTP Code' }).click();
-  await expect(page.locator('#otp-message')).toContainText(
+  await otpLoginPage.requestOtp(email);
+  await expect(otpLoginPage.otpMessage).toContainText(
     `We've sent an OTP code to your email: ${email}`
   );
 
-  await page.getByPlaceholder('Enter OTP code').fill(otp);
-  await page.getByRole('button', { name: 'Verify OTP' }).click();
-  await expect(page.locator('#otp-message')).toContainText(
+  await otpLoginPage.verifyOtp(otp);
+  await expect(otpLoginPage.otpMessage).toContainText(
     'The provided OTP code is incorrect. Please check your code and try again.'
   );
 });
 
-test('invalid email', async ({ page }) => {
-  await page.getByLabel('Your Email Address').fill('invEmail');
+test('invalid email', async () => {
+  await otpLoginPage.emailInput.fill('invEmail');
 
-  await expect(page.locator('#email + .invalid-feedback')).toContainText(
+  await expect(otpLoginPage.emailValidationMessage).toContainText(
     'Please enter a valid email address.'
   );
 });
