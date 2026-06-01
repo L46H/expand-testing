@@ -1,6 +1,6 @@
-import { test, expect } from '../fixtures/adblock.fixture';
-import { RegisterPage } from '../pages/register.page';
-import registerData from '../data/register.data.json';
+import { test, expect } from '../../fixtures/adblock.fixture';
+import { RegisterPage } from '../../pages/register.page';
+import registerData from '../../data/register.data.json';
 
 let registerPage: RegisterPage;
 

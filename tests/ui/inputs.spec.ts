@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/adblock.fixture';
-import { InputsData, InputsPage } from '../pages/inputs.page';
+import { test, expect } from '../../fixtures/adblock.fixture';
+import { InputsData, InputsPage } from '../../pages/inputs.page';
 
 const testData: InputsData = {
   number: '12345',

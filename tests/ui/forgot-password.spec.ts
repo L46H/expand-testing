@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/adblock.fixture';
-import { ForgotPasswordPage } from '../pages/forgot-password.page';
+import { test, expect } from '../../fixtures/adblock.fixture';
+import { ForgotPasswordPage } from '../../pages/forgot-password.page';
 
 let forgotPasswordPage: ForgotPasswordPage;
 
