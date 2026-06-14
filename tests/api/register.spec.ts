@@ -22,3 +22,13 @@ test('successful registration', async ({ request }) => {
   expect(jsonData.data.email).toBe(email);
   expect(jsonData.data.name).toBe(name);
 });
+
+test('invalid input data', async ({ request }) => {
+  const response = await request.post('/notes/api/users/register', {
+    data: {}
+  });
+  const jsonData = await response.json();
+
+  expect(response.status()).toBe(400);
+  expect(jsonData.success).toBe(false);
+});
