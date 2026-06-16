@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test';
 import registerData from '../../data/register.data.json';
+import { endpoints } from '../../constants/endpoints';
 
 test('successful registration', async ({ request }) => {
   const name = `user${Date.now()}`;
   const email = `user${Date.now()}@example.com`;
   const { password } = registerData.validRegister;
 
-  const response = await request.post('/notes/api/users/register', {
+  const response = await request.post(endpoints.register, {
     data: {
       name,
       email,
