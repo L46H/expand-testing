@@ -1,32 +1,51 @@
 ## Links
 
-- test site
+- test site:
   https://practice.expandtesting.com
+
+## Test Structure
+
+- UI tests: `tests/ui`
+- API tests: `tests/api`
 
 ## Commands
 
 - new project with Playwright:
   `npm init playwright@latest`
-- record tests for given site
+
+- record tests for given site:
   `npx playwright codegen https://practice.expandtesting.com`
+
 - run tests without browser GUI:
   `npx playwright test`
   `npx playwright test --repeat-each=10`
   `npx playwright test --retries=3`
+
+- run UI tests:
+  `npx playwright test --project=ui`
+
+- run API tests:
+  `npx playwright test --project=api`
+
 - run test with browser GUI:
   `npx playwright test --headed`
-- viewing report
+
+- viewing report:
   `npx playwright show-report`
-- run Trace Viewer on zip file
+ 
+- run Trace Viewer on zip file:
   `npx playwright show-trace trace.zip`
 
 ## Updating Playwright
 
-- check if Playwright should be updated
+- check if Playwright should be updated:
   `npm outdated @playwright/test`
-  -update Playwright
+
+- update Playwright:
   `npm i @playwright/test`
-  -update browsers
+
+- update browsers:
   `npx playwright install`
-  -verify Playwright version
+
+- verify Playwright version:
   `npx @playwright/test --version`
