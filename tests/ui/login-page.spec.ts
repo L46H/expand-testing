@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/adblock.fixture';
 import { LoginPage } from '../../pages/login.page';
-import loginData from '../../data/login.data.json';
+import loginData from '../../data/ui/login.data.json';
 
 let loginPage: LoginPage;
 

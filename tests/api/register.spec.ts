@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import registerData from '../../data/register.data.json';
+import registerData from '../../data/api/register.data.json';
 import { endpoints } from '../../constants/endpoints';
 
 test('successful registration', async ({ request }) => {

@@ -1,5 +1,5 @@
 import { test, expect } from '../../fixtures/adblock.fixture';
-import loginData from '../../data/login.data.json';
+import loginData from '../../data/ui/login.data.json';
 import { OtpLoginPage } from '../../pages/otp-login.page';
 
 let otpLoginPage: OtpLoginPage;
