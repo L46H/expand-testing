@@ -24,8 +24,8 @@ test('successful registration', async ({ request }) => {
   expect(jsonData.data.name).toBe(name);
 });
 
-test('invalid input data', async ({ request }) => {
-  const response = await request.post('/notes/api/users/register', {
+test('registration with empty body', async ({ request }) => {
+  const response = await request.post(endpoints.register, {
     data: {}
   });
   const jsonData = await response.json();
