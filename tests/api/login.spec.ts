@@ -11,11 +11,20 @@ test('successful login', async ({ request }) => {
       password
     }
   });
-
   const jsonData = await response.json();
 
   expect(response.status()).toBe(200);
   expect(jsonData.success).toBe(true);
   expect(jsonData.data.email).toBe(email);
   expect(jsonData.data.token).toBeTruthy();
+});
+
+test('login with empty body', async ({ request }) => {
+  const response = await request.post(endpoints.login, {
+    data: {}
+  });
+  const jsonData = await response.json();
+
+  expect(response.status()).toBe(400);
+  expect(jsonData.success).toBe(false);
 });
