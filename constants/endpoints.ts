@@ -1,4 +1,5 @@
 export const endpoints = {
+  healthCheck: '/notes/api/health-check',
   register: '/notes/api/users/register',
-  healthCheck: '/notes/api/health-check'
+  login: '/notes/api/users/login',
 };

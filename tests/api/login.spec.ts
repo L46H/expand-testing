@@ -1,0 +1,21 @@
+import { test, expect } from '@playwright/test';
+import loginData from '../../data/api/login.data.json';
+import { endpoints } from '../../constants/endpoints';
+
+test('successful login', async ({ request }) => {
+  const { email, password } = loginData.validLogin;
+
+  const response = await request.post(endpoints.login, {
+    data: {
+      email,
+      password
+    }
+  });
+
+  const jsonData = await response.json();
+
+  expect(response.status()).toBe(200);
+  expect(jsonData.success).toBe(true);
+  expect(jsonData.data.email).toBe(email);
+  expect(jsonData.data.token).toBeTruthy();
+});
