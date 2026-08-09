@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 export class OtpLoginPage {
   readonly emailInput: Locator;
@@ -9,7 +9,7 @@ export class OtpLoginPage {
   readonly verifyOtpButton: Locator;
   readonly emailValidationMessage: Locator;
 
-  constructor(private page: Page) {
+  constructor(private readonly page: Page) {
     this.emailInput = page.getByLabel('Your Email Address');
     this.sendOtpButton = page.getByRole('button', { name: 'Send OTP Code' });
     this.otpMessage = page.locator('#otp-message');
@@ -19,21 +19,21 @@ export class OtpLoginPage {
     this.alertMessage = page.getByRole('alert');
   }
 
-  async open() {
+  async open(): Promise<void> {
     await this.page.goto('/otp-login');
   }
 
-  async requestOtp(email: string) {
+  async requestOtp(email: string): Promise<void> {
     await this.emailInput.fill(email);
     await this.sendOtpButton.click();
   }
 
-  async verifyOtp(otp: string) {
+  async verifyOtp(otp: string): Promise<void> {
     await this.otpInput.fill(otp);
     await this.verifyOtpButton.click();
   }
 
-  async loginWithOtp(email: string, otp: string) {
+  async loginWithOtp(email: string, otp: string): Promise<void> {
     await this.requestOtp(email);
     await this.verifyOtp(otp);
   }

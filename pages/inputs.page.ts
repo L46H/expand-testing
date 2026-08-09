@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import type { Page, Locator } from '@playwright/test';
 
 export type InputsData = {
   number: string;
@@ -21,7 +21,7 @@ export class InputsPage {
   readonly displayButton: Locator;
   readonly clearButton: Locator;
 
-  constructor(private page: Page) {
+  constructor(private readonly page: Page) {
     this.numberInput = page.locator('#input-number');
     this.textInput = page.locator('#input-text');
     this.passwordInput = page.locator('#input-password');
@@ -54,22 +54,22 @@ export class InputsPage {
     ];
   }
 
-  async open() {
+  async open(): Promise<void> {
     await this.page.goto('/inputs');
   }
 
-  async fillInputs(data: InputsData) {
+  async fillInputs(data: InputsData): Promise<void> {
     await this.numberInput.fill(data.number);
     await this.textInput.fill(data.text);
     await this.passwordInput.fill(data.password);
     await this.dateInput.fill(data.date);
   }
 
-  async displayInputs() {
+  async displayInputs(): Promise<void> {
     await this.displayButton.click();
   }
 
-  async clearInputs() {
+  async clearInputs(): Promise<void> {
     await this.clearButton.click();
   }
 }
