@@ -1,15 +1,11 @@
-import { test, expect } from '../../fixtures/adblock.fixture';
+import { test, expect } from '../../fixtures/pages.fixture';
 import loginData from '../../data/ui/login.data.json';
-import { OtpLoginPage } from '../../pages/otp-login.page';
 
-let otpLoginPage: OtpLoginPage;
-
-test.beforeEach(async ({ page }) => {
-  otpLoginPage = new OtpLoginPage(page);
+test.beforeEach(async ({ otpLoginPage }) => {
   await otpLoginPage.open();
 });
 
-test('successful OTP login', async () => {
+test('successful OTP login', async ({ otpLoginPage }) => {
   const { email, otp } = loginData.validOtpLogin;
 
   await otpLoginPage.requestOtp(email);
@@ -23,7 +19,7 @@ test('successful OTP login', async () => {
   );
 });
 
-test('incorrect OTP code', async () => {
+test('incorrect OTP code', async ({ otpLoginPage }) => {
   const { email, otp } = loginData.invalidOtpCode;
 
   await otpLoginPage.requestOtp(email);
@@ -37,7 +33,7 @@ test('incorrect OTP code', async () => {
   );
 });
 
-test('invalid email', async () => {
+test('invalid email', async ({ otpLoginPage }) => {
   await otpLoginPage.emailInput.fill('invEmail');
 
   await expect(otpLoginPage.emailValidationMessage).toContainText(

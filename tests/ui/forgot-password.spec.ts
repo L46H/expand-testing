@@ -1,14 +1,10 @@
-import { test, expect } from '../../fixtures/adblock.fixture';
-import { ForgotPasswordPage } from '../../pages/forgot-password.page';
+import { test, expect } from '../../fixtures/pages.fixture';
 
-let forgotPasswordPage: ForgotPasswordPage;
-
-test.beforeEach(async ({ page }) => {
-  forgotPasswordPage = new ForgotPasswordPage(page);
+test.beforeEach(async ({ forgotPasswordPage }) => {
   await forgotPasswordPage.open();
 });
 
-test('successful password reset', async () => {
+test('successful password reset', async ({ forgotPasswordPage }) => {
   await forgotPasswordPage.requestPasswordReset('test@example.com');
 
   await expect(forgotPasswordPage.alertMessage).toContainText(
@@ -16,7 +12,7 @@ test('successful password reset', async () => {
   );
 });
 
-test('invalid email format', async () => {
+test('invalid email format', async ({ forgotPasswordPage }) => {
   await forgotPasswordPage.requestPasswordReset('invEmail');
 
   await expect(forgotPasswordPage.emailValidationMessage).toContainText(
@@ -24,7 +20,7 @@ test('invalid email format', async () => {
   );
 });
 
-test('invalid email', async () => {
+test('invalid email', async ({ forgotPasswordPage }) => {
   await forgotPasswordPage.requestPasswordReset('invEmail@example');
 
   await expect(forgotPasswordPage.alertMessage).toContainText(

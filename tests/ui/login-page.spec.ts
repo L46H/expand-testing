@@ -1,15 +1,11 @@
-import { test, expect } from '../../fixtures/adblock.fixture';
-import { LoginPage } from '../../pages/login.page';
+import { test, expect } from '../../fixtures/pages.fixture';
 import loginData from '../../data/ui/login.data.json';
 
-let loginPage: LoginPage;
-
-test.beforeEach(async ({ page }) => {
-  loginPage = new LoginPage(page);
+test.beforeEach(async ({ loginPage }) => {
   await loginPage.open();
 });
 
-test('successful login', async () => {
+test('successful login', async ({ loginPage }) => {
   const { username, password } = loginData.validLogin;
 
   await loginPage.login(username, password);
@@ -18,7 +14,7 @@ test('successful login', async () => {
   );
 });
 
-test('successful logout', async () => {
+test('successful logout', async ({ loginPage }) => {
   const { username, password } = loginData.validLogin;
 
   await loginPage.login(username, password);
@@ -28,14 +24,14 @@ test('successful logout', async () => {
   );
 });
 
-test('invalid username', async () => {
+test('invalid username', async ({ loginPage }) => {
   const { username, password } = loginData.invalidUsername;
 
   await loginPage.login(username, password);
   await expect(loginPage.message).toContainText('Your username is invalid!');
 });
 
-test('invalid password', async () => {
+test('invalid password', async ({ loginPage }) => {
   const { username, password } = loginData.invalidPassword;
 
   await loginPage.login(username, password);

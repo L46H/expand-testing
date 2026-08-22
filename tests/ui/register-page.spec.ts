@@ -1,15 +1,11 @@
-import { test, expect } from '../../fixtures/adblock.fixture';
-import { RegisterPage } from '../../pages/register.page';
+import { test, expect } from '../../fixtures/pages.fixture';
 import registerData from '../../data/ui/register.data.json';
 
-let registerPage: RegisterPage;
-
-test.beforeEach(async ({ page }) => {
-  registerPage = new RegisterPage(page);
+test.beforeEach(async ({ registerPage }) => {
   await registerPage.open();
 });
 
-test('successful registration', async () => {
+test('successful registration', async ({ registerPage }) => {
   const username = `user${Date.now()}`;
   const { password } = registerData.validRegister;
 
@@ -19,7 +15,7 @@ test('successful registration', async () => {
   );
 });
 
-test('password mismatch', async () => {
+test('password mismatch', async ({ registerPage }) => {
   const username = `user${Date.now()}`;
   const { password, confirmPassword } = registerData.passwordMismatch;
 
@@ -27,14 +23,14 @@ test('password mismatch', async () => {
   await expect(registerPage.message).toContainText('Passwords do not match.');
 });
 
-test('empty fields', async () => {
+test('empty fields', async ({ registerPage }) => {
   const { username, password, confirmPassword } = registerData.emptyFields;
 
   await registerPage.register(username, password, confirmPassword);
   await expect(registerPage.message).toContainText('All fields are required.');
 });
 
-test('username too short', async () => {
+test('username too short', async ({ registerPage }) => {
   const { username, password, confirmPassword } = registerData.shortUsername;
 
   await registerPage.register(username, password, confirmPassword);
@@ -43,7 +39,7 @@ test('username too short', async () => {
   );
 });
 
-test('password too short', async () => {
+test('password too short', async ({ registerPage }) => {
   const username = `user${Date.now()}`;
   const { password, confirmPassword } = registerData.shortPassword;
 

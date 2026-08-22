@@ -1,5 +1,5 @@
-import { test, expect } from '../../fixtures/adblock.fixture';
-import { InputsData, InputsPage } from '../../pages/inputs.page';
+import { test, expect } from '../../fixtures/pages.fixture';
+import type { InputsData } from '../../pages/inputs.page';
 
 const testData: InputsData = {
   number: '12345',
@@ -8,14 +8,11 @@ const testData: InputsData = {
   date: '2025-11-11'
 };
 
-let inputsPage: InputsPage;
-
-test.beforeEach(async ({ page }) => {
-  inputsPage = new InputsPage(page);
+test.beforeEach(async ({ inputsPage }) => {
   await inputsPage.open();
 });
 
-test('display entered inputs', async () => {
+test('display entered inputs', async ({ inputsPage }) => {
   await inputsPage.fillInputs(testData);
   await inputsPage.displayInputs();
 
@@ -25,7 +22,7 @@ test('display entered inputs', async () => {
   await expect(inputsPage.dateOutput).toHaveText(testData.date);
 });
 
-test('clear displayed inputs', async () => {
+test('clear displayed inputs', async ({ inputsPage }) => {
   await inputsPage.fillInputs(testData);
   await inputsPage.displayInputs();
   await inputsPage.clearInputs();
