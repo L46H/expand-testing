@@ -7,16 +7,21 @@
     "test": "playwright test",
     "test:ui": "playwright test --project=ui",
     "test:api": "playwright test --project=api",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.1",
     "@types/node": "^25.1.0",
-    "typescript": "^7.0.2"
+    "eslint": "^10.9.1",
+    "eslint-plugin-playwright": "^2.11.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.69.0"
   },
   "dependencies": {
     "dotenv": "^17.2.3"
