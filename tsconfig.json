@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2022", 
-    "module": "Node16", 
-    "moduleResolution": "Node16", 
-    "strict": true, 
-    "noEmit": true, 
-    "resolveJsonModule": true, 
-    "esModuleInterop": true, 
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "strict": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true 
+    "skipLibCheck": true
   },
   "include": [
     "tests/**/*.ts",
@@ -18,9 +18,5 @@
     "constants/**/*.ts",
     "playwright.config.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "playwright-report",
-    "test-results"
-  ]
+  "exclude": ["node_modules", "playwright-report", "test-results"]
 }

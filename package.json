@@ -8,7 +8,9 @@
     "test:ui": "playwright test --project=ui",
     "test:api": "playwright test --project=api",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "@types/node": "^25.1.0",
     "eslint": "^10.9.1",
     "eslint-plugin-playwright": "^2.11.0",
+    "prettier": "^3.9.6",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.69.0"
   },
