@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { AuthClient } from '../../api/auth.client';
 import loginData from '../../data/api/login.data.json';
-import { endpoints } from '../../constants/endpoints';
 
 test('successful login', async ({ request }) => {
   const authClient = new AuthClient(request);
@@ -30,7 +29,7 @@ test('login with invalid credentials', async ({ request }) => {
   const authClient = new AuthClient(request);
   const { email, password } = loginData.invalidLogin;
 
-  const response = await authClient.login(loginData.invalidLogin);
+  const response = await authClient.login({ email, password });
   const jsonData = await response.json();
 
   expect(response.status()).toBe(401);
