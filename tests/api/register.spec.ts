@@ -1,23 +1,21 @@
 import { test, expect } from '@playwright/test';
 import registerData from '../../data/api/register.data.json';
-import { endpoints } from '../../constants/endpoints';
-import { loginUser, deleteCurrentUser } from '../../helpers/api/auth.helper';
+import { AuthClient } from '../../api/auth.client';
 
 test('successful registration', async ({ request }) => {
   const timestamp = Date.now();
   const name = `user${timestamp}`;
   const email = `user${timestamp}@example.com`;
   const { password } = registerData.validRegister;
+  const authClient = new AuthClient(request);
 
   let token: string | undefined;
 
   try {
-    const response = await request.post(endpoints.register, {
-      data: {
-        name,
-        email,
-        password
-      }
+    const response = await authClient.register({
+      name,
+      email,
+      password
     });
 
     const jsonData = await response.json();
@@ -28,18 +26,21 @@ test('successful registration', async ({ request }) => {
     expect(jsonData.data.email).toBe(email);
     expect(jsonData.data.name).toBe(name);
 
-    token = await loginUser(request, email, password);
+    const loginResponse = await authClient.login({ email, password });
+
+    const loginData = await loginResponse.json();
+    token = loginData.data.token;
   } finally {
     if (token) {
-      await deleteCurrentUser(request, token);
+      await authClient.deleteCurrentUser(token);
     }
   }
 });
 
 test('registration with empty body', async ({ request }) => {
-  const response = await request.post(endpoints.register, {
-    data: {}
-  });
+  const authClient = new AuthClient(request);
+
+  const response = await authClient.register({});
   const jsonData = await response.json();
 
   expect(response.status()).toBe(400);

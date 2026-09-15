@@ -14,8 +14,8 @@
     "tests/**/*.ts",
     "pages/**/*.ts",
     "fixtures/**/*.ts",
-    "helpers/**/*.ts",
     "constants/**/*.ts",
+    "api/**/*.ts",
     "playwright.config.ts"
   ],
   "exclude": ["node_modules", "playwright-report", "test-results"]

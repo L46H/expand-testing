@@ -6,11 +6,21 @@ type LoginRequest = {
   password: string;
 };
 
+type RegisterRequest = LoginRequest & {
+  name: string;
+};
+
 export class AuthClient {
   constructor(private readonly request: APIRequestContext) {}
 
   async login(data: Partial<LoginRequest>): Promise<APIResponse> {
     return this.request.post(endpoints.login, {
+      data
+    });
+  }
+
+  async register(data: Partial<RegisterRequest>): Promise<APIResponse> {
+    return this.request.post(endpoints.register, {
       data
     });
   }
