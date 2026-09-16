@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { AuthClient } from '../../api/auth.client';
+import { AuthClient } from '../../api/clients/auth.client';
 import loginData from '../../data/api/login.data.json';
 
 test('successful login', async ({ request }) => {

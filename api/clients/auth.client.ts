@@ -1,5 +1,5 @@
 import { APIRequestContext, APIResponse } from '@playwright/test';
-import { endpoints } from '../constants/endpoints';
+import { endpoints } from '../../constants/endpoints';
 
 type LoginRequest = {
   email: string;

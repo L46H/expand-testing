@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import registerData from '../../data/api/register.data.json';
-import { AuthClient } from '../../api/auth.client';
+import { AuthClient } from '../../api/clients/auth.client';
 
 test('successful registration', async ({ request }) => {
   const timestamp = Date.now();
