@@ -1,14 +1,6 @@
-import { APIRequestContext, APIResponse } from '@playwright/test';
+import type { APIRequestContext, APIResponse } from '@playwright/test';
 import { endpoints } from '../../constants/endpoints';
-
-type LoginRequest = {
-  email: string;
-  password: string;
-};
-
-type RegisterRequest = LoginRequest & {
-  name: string;
-};
+import type { LoginRequest, RegisterRequest } from '../models/auth.models';
 
 export class AuthClient {
   constructor(private readonly request: APIRequestContext) {}

@@ -1,6 +1,11 @@
 import { test, expect } from '@playwright/test';
 import registerData from '../../data/api/register.data.json';
 import { AuthClient } from '../../api/clients/auth.client';
+import type {
+  ErrorResponse,
+  LoginResponse,
+  RegisterResponse
+} from '../../api/models/auth.models';
 
 test('successful registration', async ({ request }) => {
   const timestamp = Date.now();
@@ -18,7 +23,7 @@ test('successful registration', async ({ request }) => {
       password
     });
 
-    const jsonData = await response.json();
+    const jsonData = (await response.json()) as RegisterResponse;
 
     expect(response.status()).toBe(201);
     expect(jsonData.success).toBe(true);
@@ -28,7 +33,7 @@ test('successful registration', async ({ request }) => {
 
     const loginResponse = await authClient.login({ email, password });
 
-    const loginData = await loginResponse.json();
+    const loginData = (await loginResponse.json()) as LoginResponse;
     token = loginData.data.token;
   } finally {
     if (token) {
@@ -41,7 +46,7 @@ test('registration with empty body', async ({ request }) => {
   const authClient = new AuthClient(request);
 
   const response = await authClient.register({});
-  const jsonData = await response.json();
+  const jsonData = (await response.json()) as ErrorResponse;
 
   expect(response.status()).toBe(400);
   expect(jsonData.success).toBe(false);
