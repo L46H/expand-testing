@@ -1,37 +1,33 @@
 import { test, expect } from '@playwright/test';
-import registerData from '../../data/api/register.data.json';
 import { AuthClient } from '../../api/clients/auth.client';
 import type {
   ErrorResponse,
   LoginResponse,
   RegisterResponse
 } from '../../api/models/auth.models';
+import { createUser } from '../../api/factories/user.factory';
 
 test('successful registration', async ({ request }) => {
-  const timestamp = Date.now();
-  const name = `user${timestamp}`;
-  const email = `user${timestamp}@example.com`;
-  const { password } = registerData.validRegister;
   const authClient = new AuthClient(request);
+  const user = createUser();
 
   let token: string | undefined;
 
   try {
-    const response = await authClient.register({
-      name,
-      email,
-      password
-    });
+    const response = await authClient.register(user);
 
     const jsonData = (await response.json()) as RegisterResponse;
 
     expect(response.status()).toBe(201);
     expect(jsonData.success).toBe(true);
     expect(jsonData.data.id).toBeTruthy();
-    expect(jsonData.data.email).toBe(email);
-    expect(jsonData.data.name).toBe(name);
+    expect(jsonData.data.email).toBe(user.email);
+    expect(jsonData.data.name).toBe(user.name);
 
-    const loginResponse = await authClient.login({ email, password });
+    const loginResponse = await authClient.login({
+      email: user.email,
+      password: user.password
+    });
 
     const loginData = (await loginResponse.json()) as LoginResponse;
     token = loginData.data.token;
