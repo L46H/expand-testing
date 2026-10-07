@@ -1,39 +1,90 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
 jobs:
-  test:
-    timeout-minutes: 60
+  quality:
     runs-on: ubuntu-latest
-    env:
-      CI: true
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
           cache: 'npm'
+
       - name: Install dependencies
         run: npm ci
+
       - name: Run quality checks
         run: npm run quality
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
+
+  api:
+    needs: quality
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    env:
+      CI: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ hashFiles('**/package-lock.json') }}
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests
+          node-version: lts/*
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run API tests
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
-        run: npm test
+        run: npm run test:api
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
+          name: playwright-report-api
+          path: playwright-report/
+          retention-days: 30
+
+  ui:
+    needs: quality
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    env:
+      CI: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run UI tests
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: npm run test:ui
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-ui
           path: playwright-report/
           retention-days: 30
