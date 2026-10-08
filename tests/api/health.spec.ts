@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../fixtures/api.fixture';
 import { endpoints } from '../../constants/endpoints';
 
 test('successful health check', async ({ request }) => {
