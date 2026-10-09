@@ -1,51 +1,68 @@
-## Links
+# Expand Testing - Playwright
 
-- test site:
-  https://practice.expandtesting.com
+Playwright + TypeScript project for practicing UI and API test automation on [Expand Testing](https://practice.expandtesting.com/).
 
-## Test Structure
+## Structure
 
-- UI tests: `tests/ui`
-- API tests: `tests/api`
+- `api/clients` - API clients
+- `api/factories` - test data factories
+- `api/models` - request and response types
+- `constants` - shared constants and API endpoints
+- `data` - test data
+- `fixtures` - custom Playwright fixtures
+- `pages` - Page Object Models
+- `tests/api` - API tests
+- `tests/ui` - UI tests
+
+## Tests
+
+The project contains:
+
+- UI tests based on Page Object Model
+- API tests using Playwright `APIRequestContext`
+- custom fixtures for page objects and API setup
+- dynamic user creation and cleanup for API tests
 
 ## Commands
 
-- new project with Playwright:
-  `npm init playwright@latest`
+Install dependencies:
 
-- record tests for given site:
-  `npx playwright codegen https://practice.expandtesting.com`
+`npm ci`
 
-- run tests without browser GUI:
-  `npx playwright test`
-  `npx playwright test --repeat-each=10`
-  `npx playwright test --retries=3`
+Run all tests:
 
-- run UI tests:
-  `npx playwright test --project=ui`
+`npm test`
 
-- run API tests:
-  `npx playwright test --project=api`
+Run only UI tests:
 
-- run test with browser GUI:
-  `npx playwright test --headed`
+`npm run test:ui`
 
-- viewing report:
-  `npx playwright show-report`
+Run only API tests:
 
-- run Trace Viewer on zip file:
-  `npx playwright show-trace trace.zip`
+`npm run test:api`
 
-## Updating Playwright
+Run static checks:
 
-- check if Playwright should be updated:
-  `npm outdated @playwright/test`
+`npm run quality`
 
-- update Playwright:
-  `npm i @playwright/test`
+Format project:
 
-- update browsers:
-  `npx playwright install`
+`npm run format`
 
-- verify Playwright version:
-  `npx @playwright/test --version`
+## Environment
+
+Create `.env` based on `.env.example`:
+
+`BASE_URL=https://practice.expandtesting.com`
+
+## CI
+
+GitHub Actions runs three jobs:
+
+- `quality`
+- `api`
+- `ui`
+
+The `quality` job runs TypeScript, ESLint and Prettier checks.
+
+API and UI tests run in separate jobs after the quality checks pass. Chromium is installed only for UI tests.
